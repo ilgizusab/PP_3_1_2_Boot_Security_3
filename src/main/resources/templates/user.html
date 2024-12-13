@@ -1,11 +1,59 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+    <title>Профиль</title>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
+<form th:unless="${user==null}" class="form-control-sm" method="get" action="/">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">На главную</button>
+</form>
+<form th:unless="${user==null}" class="form-control-sm" method="get" action="/logout">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Выйти</button>
+</form>
+<h1><span th:text="${user.username}"></span>, добро пожаловать на страницу профиля!</h1>
 
+<div class="col-md-8 order-md-1">
+    <h4 class="mb-3">Профиль</h4>
+    <form class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="username">Username</label>
+            <div class="input-group">
+                <input type="text" th:class="form-control" id="username" th:field="*{user.username}" required readonly>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="firstName">First name</label>
+                <input type="text" th:class="form-control" id="firstName" th:field="*{user.firstName}" required readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="lastName">Last name</label>
+                <input type="text" th:class="form-control" id="lastName" th:field="*{user.lastName}" required readonly>
+            </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-6 mb-3">
+            <label for="email">Email</label>
+            <input type="text" th:class="form-control" id="email" th:field="*{user.email}" required readonly>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label for="age">Age</label>
+            <input type="text" th:class="form-control" id="age" th:field="*{user.age}" required readonly>
+        </div>
+        </div>
+
+        <div class="row">
+            <label for="isenabled"></label>
+            <input type="checkbox" th:class="form-control" id="isenabled" th:field="*{user.enabled}" required readonly>
+        </div>
+    </form>
+</div>
 
 </body>
 </html>

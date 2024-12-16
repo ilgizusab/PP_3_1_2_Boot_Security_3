@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
     <title>Title</title>
 </head>
 <body>
-<form th:unless="${user==null}" class="form-control-sm" method="get" action="/">
+<form th:unless="${user!=null}" class="form-control-sm" method="get" action="/">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Home</button>
 </form>
-<form th:unless="${user==null}" class="form-control-sm" method="get" action="/logout">
+<form th:unless="${user!=null}" class="form-control-sm" method="get" action="/logout">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Log Out</button>
 </form>
+
 
 </body>
 </html>

@@ -8,16 +8,16 @@
     <title>Профиль</title>
 </head>
 <body>
-<form th:unless="${user==null}" class="form-control-sm" method="get" action="/">
-    <button class="btn btn-lg btn-primary btn-block" type="submit">На главную</button>
-</form>
-<form th:unless="${user==null}" class="form-control-sm" method="get" action="/logout">
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Выйти</button>
-</form>
-<h1><span th:text="${user.username}"></span>, добро пожаловать на страницу профиля!</h1>
-
 <div class="col-md-8 order-md-1">
-    <h4 class="mb-3">Профиль</h4>
+    <h2 class="text-center">
+        <span th:text="${user.username}"></span>, добро пожаловать в профиль!</h2>
+    <form th:unless="${user==null}" class="form-control-sm" method="get" action="/">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">На главную</button>
+    </form>
+    <form th:unless="${user==null}" class="form-control-sm" method="get" action="/logout">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Выйти</button>
+    </form>
+    <div class="mb-3"><h4 class="text-center">Профиль <span th:text="${user.username}"></span></h4></div>
     <form class="needs-validation" novalidate>
         <div class="mb-3">
             <label for="username">Username</label>
@@ -47,10 +47,22 @@
             <input type="text" th:class="form-control" id="age" th:field="*{user.age}" required readonly>
         </div>
         </div>
-
-        <div class="row">
-            <label for="isenabled"></label>
-            <input type="checkbox" th:class="form-control" id="isenabled" th:field="*{user.enabled}" required readonly>
+        <hr class="mb-4">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" th:class="custom-control-input" id="isenabled" th:field="*{user.enabled}" disabled>
+            <label class="custom-control-label" for="isenabled">Enabled</label>
+        </div>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" th:class="custom-control-input" id="credentialsNonExpired" th:field="*{user.credentialsNonExpired}" disabled>
+            <label class="custom-control-label" for="credentialsNonExpired">credentialsNonExpired</label>
+        </div>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" th:class="custom-control-input" id="accountNonExpired" th:field="*{user.accountNonExpired}" disabled readonly>
+            <label class="custom-control-label" for="accountNonExpired">accountNonExpired</label>
+        </div>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" th:class="custom-control-input" id="accountNonLocked" th:field="*{user.accountNonLocked}" disabled readonly>
+            <label class="custom-control-label" for="accountNonLocked">accountNonLocked</label>
         </div>
     </form>
 </div>

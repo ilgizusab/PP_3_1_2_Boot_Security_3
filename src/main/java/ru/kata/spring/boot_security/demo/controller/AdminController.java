@@ -1,6 +1,8 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class AdminController {
@@ -18,10 +21,13 @@ public class AdminController {
     private UserService userService;
 
     @GetMapping("/admin")
-    public String showAdminPanel(Model model, Principal principal) {
+    public String showAdminPanel(Model model, Authentication auth) {
         List<User> users = userService.getAllUsers();
+        User user = userService.getUserByUsername(auth.getName());
+        Set<String> roles = AuthorityUtils.authorityListToSet(auth.getAuthorities());
+        model.addAttribute("user", user);
         model.addAttribute("users", users);
-        model.addAttribute("principal", principal);
+        model.addAttribute("roles", roles);
         return "admin";
     }
 

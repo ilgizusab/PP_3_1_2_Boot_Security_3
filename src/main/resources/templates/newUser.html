@@ -3,52 +3,83 @@
 <head>
     <title>New User</title>
     <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+    <link th:src="@{/js/bootstrap.js}">
 </head>
 <body>
-<div class="container">
-    <h1>New User</h1>
-    <form th:action="@{/admin/edit}" th:object="${user}" method="post">
-        <input type="hidden" th:field="*{id}"/>
-        <div>
-            <label for="name">Username:</label>
-            <input type="text" th:field="*{username}" id="name"/>
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-md-11" style="background-color: black; color: white;">
+            <h3><strong><span th:text="${user.email}"></span> with roles: <span th:text="${#strings.arrayJoin(roles, ' ')}"></span></strong>  </h3>
         </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="text" th:field="*{password}" id="password"/>
+        <div class="col-md-1" style="background-color: black">
+            <a th:href="@{/logout}" class="text-white-50 bg-dark">logout</a>
         </div>
-        <div>
-            <label for="firstname">FirstName:</label>
-            <input type="text" th:field="*{firstName}" id="firstname"/>
-        </div>
-        <div>
-            <label for="lastname">LastName:</label>
-            <input type="text" th:field="*{lastName}" id="lastname"/>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" th:field="*{email}" id="email"/>
-        </div>
-        <div>
-            <label for="age">Age:</label>
-            <input type="number" th:field="*{age}" id="age"/>
-        </div>
-
-        <div>
-            <label for="role">Роль:</label>
-            <select id="role" name="roleId">
-                <option th:each="role : ${allRoles}" th:value="${role.id}"
-                        th:selected="${user.roles.contains(role)}" th:text="${role.name}"></option>
-            </select>
-        </div>
-        <button type="submit">Save User</button>
-    </form>
-    <div>
-        <a th:href="@{/admin}">
-            <button>Админ-панель</button>
-        </a>
     </div>
-    <a href="/">Go to Home Page</a>
+
+    <div class="row mb-2">
+        <div class="col-md-2 bg-primary text-white">
+            <a th:href="@{/admin}" style="color: lightgrey">Admin</a>
+        </div>
+        <div class="col-md-10">
+            <h2>Admin panel</h2>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/new}">New User</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mb-2 justify-content-center">
+        <div class="col-md-2 bg-white text-primary text-center">
+            <a th:href="@{/user}" style="color: royalblue; text-decoration: none;">User</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-10" style="max-width: 600px; margin: 0 auto;">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Add new user</h5>
+                    <form th:action="@{/admin/new}" th:object="${user}" method="post">
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" th:field="*{firstName}" class="form-control" id="firstName" placeholder="First Name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" th:field="*{lastName}" class="form-control" id="lastName" placeholder="Last Name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="age" class="form-label">Age</label>
+                            <input type="text" th:field="*{age}" class="form-control" id="age" placeholder="Age">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="Email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="roles" class="form-label">Roles</label>
+                            <select th:field="*{roles}" class="form-select" id="roles" multiple>
+                                <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}"></option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Add new user</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

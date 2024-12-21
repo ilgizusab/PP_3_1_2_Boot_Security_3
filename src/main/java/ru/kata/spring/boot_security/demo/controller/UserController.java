@@ -23,15 +23,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping("/")
-    public String index(Model model, Authentication auth) {
-        User user = userService.getUserByUsername(auth.getName());
-        Set<String> roles = AuthorityUtils.authorityListToSet(auth.getAuthorities());
-        model.addAttribute("user", user);
-        model.addAttribute("roles", roles);
-        return "index";
-    }
-
     @GetMapping("/user")
     public String user(Model model, Authentication auth) {
         User user = userService.getUserByUsername(auth.getName());
